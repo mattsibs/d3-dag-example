@@ -9,6 +9,20 @@ import {DagService} from './dag.service';
   templateUrl: 'dag.component.html'
 })
 export class DagComponent implements OnInit, OnChanges {
+
+  edges = [
+    ['a', 'b'],
+    ['a', 'z'],
+    ['a', 'y'],
+    ['b', 'c'],
+    ['b', 'y'],
+    ['c', 'x'],
+    ['c', 'y'],
+    ['b', 'd'],
+    ['d', 'e'],
+    ['d', 'f'],
+    ['e', 'f']];
+
   constructor(public dagService: DagService) {
   }
 
@@ -17,7 +31,7 @@ export class DagComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     const test: Selection<any, any, HTMLElement, any> = d3.select('#dag');
-    this.dagService.createGraphFromConnections(500, 400, test);
+    this.dagService.createGraphFromConnections(100, 100, test, this.edges);
   }
 
 
