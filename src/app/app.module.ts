@@ -3,6 +3,7 @@ import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {DagModule} from './dag/dag.module';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -10,6 +11,7 @@ import {DagModule} from './dag/dag.module';
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     DagModule
   ],
   providers: [],

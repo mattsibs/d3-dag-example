@@ -1,8 +1,6 @@
 import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-
-import * as d3 from 'd3';
-import {Selection} from 'd3';
 import {DagService} from './dag.service';
+import {DagArrow, DagEdge, DagNode} from './dag-elements.interface';
 
 @Component({
   selector: 'app-dag',
@@ -10,8 +8,14 @@ import {DagService} from './dag.service';
 })
 export class DagComponent implements OnInit, OnChanges {
 
-  edges = [
+  dagEdges: DagEdge[];
+  dagNodes: DagNode[];
+  dagArrows: DagArrow[];
+  colorMap = {};
+
+  inputEdges = [
     ['a', 'b'],
+    ['q', 'b'],
     ['a', 'z'],
     ['a', 'y'],
     ['b', 'c'],
@@ -30,9 +34,10 @@ export class DagComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    const test: Selection<any, any, HTMLElement, any> = d3.select('#dag');
-    this.dagService.createGraphFromConnections(100, 100, test, this.edges);
+    const dagElements = this.dagService.createGraph(this.inputEdges);
+    this.dagEdges = dagElements.edges;
+    this.dagNodes = dagElements.nodes;
+    this.dagArrows = dagElements.arrows;
+    this.colorMap = dagElements.colorMap;
   }
-
-
 }

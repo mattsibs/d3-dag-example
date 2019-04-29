@@ -1,1 +1,41 @@
-<svg class="d3-dag" id="dag"></svg>
+<svg class="d3-dag" id="dag" viewBox="-2 -2 104 104">
+
+  <defs id="gradientDefinitions">
+    <linearGradient *ngFor="let edge of dagEdges" gradientUnits="userSpaceOnUse"
+                    [attr.id]="edge.source.id + '-' + edge.target.id"
+                    [attr.x1]="edge.source.x"
+                    [attr.x2]="edge.target.x"
+                    [attr.y1]="edge.source.y"
+                    [attr.y2]="edge.target.y">
+      <stop offset="0%" [attr.stop-color]="colorMap[edge.source.id]"></stop>
+      <stop offset="100%" [attr.stop-color]="colorMap[edge.target.id]"></stop>
+    </linearGradient>
+  </defs>
+
+  <g id="edges">
+    <path *ngFor="let edge of dagEdges"
+          fill="none" stroke-width="0.2"
+          [attr.d]="edge.d"
+          [attr.stroke]="'url(#' + edge.source.id +'-' + edge.target.id + ')'">
+    </path>
+  </g>
+
+  <g id="nodes">
+    <circle *ngFor="let node of dagNodes"
+            [attr.r]="node.radius"
+            [attr.fill]="colorMap[node.id]"
+            [attr.transform]="'translate('+ node.x + ' ' + node.y + ')'"
+    ></circle>
+  </g>
+
+
+  <g id="arrows">
+    <path *ngFor="let arrow of dagArrows"
+          fill="none" stroke-width="0.2" stroke="white"
+          [attr.d]="arrow.d"
+          [attr.fill]="colorMap[arrow.id]"
+          [attr.transform]="'translate(' + arrow.x + ',' + arrow.y + ') rotate(' + arrow.angle + ')'">
+    </path>
+  </g>
+</svg>
+
